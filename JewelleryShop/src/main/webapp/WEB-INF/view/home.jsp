@@ -1,4 +1,4 @@
-<%@ page  language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page isELIgnored="false" language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
  
@@ -21,14 +21,12 @@
   </style>
 </head>
 <body>
-<div class="container">
 
 <jsp:include page="/WEB-INF/view/shared/header.jsp"></jsp:include>
-
-
+<div class="container">
 
 <h2><center>Welcome to JewellaryShopping Cart....keep shopping</center></h2>
-<center>${LoginMessage } </center>
+<center>${LoginMessage }</center>
 
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">

@@ -75,6 +75,7 @@ public class HomeController {
 		if(id.equals("niit@gmail.com")  && pwd.equals("niit"))
 		{
 		mv.addObject("msg","Valid Crendential" );	
+		
 		session.setAttribute("LoginMessage","Welcome:"+id);
 		}
 		else
@@ -98,5 +99,13 @@ public class HomeController {
 	ModelAndView mv=new ModelAndView("/home");
 			return mv;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
