@@ -25,6 +25,29 @@
 </head>
 <body>
 
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">JewelleryShop</a> 
+     
+     
+   <li>
+   <ul class="nav navbar-nav navbar-right">
+   <span class="glyphicon glyphicon-user"></span> 412-532-674
+   </ul>
+   </li>
+      
+      
+       
+    </div>
+  </div>
+</nav>
+
+
+
+
+
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -33,7 +56,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">JewelleryShop</a>
+     
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">

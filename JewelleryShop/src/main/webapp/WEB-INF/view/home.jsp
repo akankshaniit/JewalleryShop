@@ -11,25 +11,47 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style>
-  .carousel-inner > .item > img,
+  
+  
+  <link rel="stylesheet"  type="text/css" href="resources/css/style4.css">
+  
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="resources/js/script1.js"></script>
+ <style type="text/css">
+.carousel{
+    background: #2f4357;
+    margin-top: 20px;
+}
+.carousel .item img{
+    margin: 0 auto; /* Align slide image horizontally center */
+}
+.bs-example{
+	margin: 20px;
+}
+.carousel-inner > .item > img,
   .carousel-inner > .item > a > img {
       width: 40%;
       height:30%;
       margin: Auto;
   }
-  </style>
+  
+ 
+  
+</style>
+  
 </head>
 <body>
 
 <jsp:include page="/WEB-INF/view/shared/header.jsp"></jsp:include>
-<div class="container">
 
-<h2><center>Welcome to JewellaryShopping Cart....keep shopping</center></h2>
+
+
+
+
 <center>${LoginMessage }</center>
 
 
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
+<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="3000" >
   <!-- Indicators -->
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -41,7 +63,7 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
     <div class="item active">
-      <img src="<c:url value='/resources/images/s1.jpg'/>" alt="Chania">
+      <img src="<c:url value='/resources/images/s1.jpg'/>" alt="Chania" >
     </div>
 
     <div class="item">
@@ -69,6 +91,6 @@
 </div>
 
 
-</div>
+
 </body>
 </html>
