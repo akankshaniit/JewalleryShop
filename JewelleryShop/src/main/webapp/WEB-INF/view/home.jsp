@@ -17,80 +17,66 @@
   
   <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="resources/js/script1.js"></script>
- <style type="text/css">
-.carousel{
-    background: #2f4357;
-    margin-top: 20px;
-}
-.carousel .item img{
-    margin: 0 auto; /* Align slide image horizontally center */
-}
-.bs-example{
-	margin: 20px;
-}
-.carousel-inner > .item > img,
-  .carousel-inner > .item > a > img {
-      width: 40%;
-      height:30%;
-      margin: Auto;
-  }
-  
- 
-  
-</style>
-  
+
 </head>
 <body>
 
 <jsp:include page="/WEB-INF/view/shared/header.jsp"></jsp:include>
 
-
-
-
-
 <center>${LoginMessage }</center>
 
 
-<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="3000" >
+<div id="mycarousel" class="carousel slide" data-ride="carousel" data interval="3000">
+
+
+
   <!-- Indicators -->
   <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-    <li data-target="#myCarousel" data-slide-to="3"></li>
+    <li data-target="#mycarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#mycarousel" data-slide-to="1"></li>
+    <li data-target="#mycarousel" data-slide-to="2"></li>
+    <li data-target="#mycarousel" data-slide-to="3"></li>
+   
   </ol>
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
     <div class="item active">
-      <img src="<c:url value='/resources/images/s1.jpg'/>" alt="Chania" >
+        <img src="<c:url value='/resources/images/d9.jpg'/>" data-color="lightblue" alt="First Image">
+        <div class="carousel-caption">
+           
+        </div>
     </div>
-
     <div class="item">
-      <img src="<c:url value='/resources/images/s2.jpg'/>" alt="Chania">
+        <img src="<c:url value='/resources/images/d5.png'/>" data-color="firebrick" alt="Second Image">
+        <div class="carousel-caption">
+           
+        </div>
     </div>
-
     <div class="item">
-      <img src="<c:url value='/resources/images/s3.jpg'/>" alt="Flower">
+        <img src="<c:url value='/resources/images/d6.jpg'/>"  data-color="violet" alt="Third Image">
+        <div class="carousel-caption">
+            
+        </div>
     </div>
-
     <div class="item">
-      <img src="<c:url value='/resources/images/s6.jpg'/>" alt="Flower">
+        <img src="<c:url value='/resources/images/d7.jpg'/>"  data-color="lightgreen" alt="Fourth Image">
+        <div class="carousel-caption">
+            
+        </div>
     </div>
+   
   </div>
 
-  <!-- Left and right controls -->
-  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+  <!-- Controls -->
+  <a class="left carousel-control" href="#mycarousel" role="button" data-slide="prev">
     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
   </a>
-  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+  <a class="right carousel-control" href="#mycarousel" role="button" data-slide="next">
     <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
 </div>
-
-
-
 </body>
 </html>
