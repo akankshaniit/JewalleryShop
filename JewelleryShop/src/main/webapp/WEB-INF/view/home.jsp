@@ -9,24 +9,30 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libss/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
   
   <link rel="stylesheet"  type="text/css" href="resources/css/style4.css">
   
   <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="resources/js/script1.js"></script>
 
 </head>
 <body>
 
 <jsp:include page="/WEB-INF/view/shared/header.jsp"></jsp:include>
 
+
+<jsp:include page="/WEB-INF/view/adminhome.jsp"></jsp:include>
+
+
+
+
+
 <center>${LoginMessage }</center>
 
 
-<div id="mycarousel" class="carousel slide" data-ride="carousel" data interval="3000">
+<div id="mycarousel" class="carousel slide" data-ride="carousel" data interval="3000" no-margin no-padding>
 
 
 

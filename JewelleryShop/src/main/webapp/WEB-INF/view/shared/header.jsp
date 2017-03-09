@@ -17,8 +17,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
-  
-  <link rel="stylesheet"  type="text/css" href="resources/css/style2.css">
+ 
+ 
 
   
   
@@ -26,24 +26,24 @@
 <body>
 
 
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default no-margin no-padding ">
   <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">JewelleryShop</a> 
-     
-     
-   <li>
-   <ul class="nav navbar-nav navbar-right">
-   <span class="glyphicon glyphicon-user"></span> 412-532-674
-   </ul>
-   </li>
+  <div>
+      <ul class="nav navbar-nav">
+      <li>
+      <a class="navbar-brand" href="#">JewelleryShop</a></li> 
+      </ul>
+       <ul class="nav navbar-nav navbar-right">
+     <li > <span class="glyphicon glyphicon-user"></span>4412-7321</a></li>
+   
       
+  </ul>
   </div>
   </div>
 </nav>
 
       
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse  no-margin no-padding ">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -67,7 +67,7 @@
         <li><a href="about">About Us</a></li>
        
         <li><a href="contact">Contact Us</a></li>
-       
+       <li><a href="showAll">All Products</a></li>
       
         
       </ul>

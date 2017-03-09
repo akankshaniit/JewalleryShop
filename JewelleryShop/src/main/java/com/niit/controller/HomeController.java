@@ -1,5 +1,7 @@
 package com.niit.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +11,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.niit.dao.ProductDAO;
+import com.niit.dao.UserDAO;
+import com.niit.model.Product;
+import com.niit.model.User;
+
 @Controller
 public class HomeController {
 	
 	@Autowired
 	private HttpSession session;
+	@Autowired
+	ProductDAO productDao;
+	@Autowired
+	UserDAO userDAO;
+	@Autowired
+	User user;
+	
 	
 	
 	@RequestMapping("/")
@@ -67,22 +81,34 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/validate",method=RequestMethod.POST)
-	public ModelAndView ValidateCrendentials(@RequestParam("emailID") String id,@RequestParam("password") String pwd)
+	public ModelAndView ValidateCrendentials(@RequestParam("mail") String mail,@RequestParam("password") String pwd)
 			{
 		
 		System.out.println("Validating..........");
 		ModelAndView mv=new ModelAndView("/home");
-		if(id.equals("niit@gmail.com")  && pwd.equals("niit"))
+		if(userDAO.validate(mail, pwd)==true)
 		{
-		mv.addObject("msg","Valid Crendential" );	
-		
-		session.setAttribute("LoginMessage","Welcome:"+id);
+          user = userDAO.getUser(mail);
+			
+			if(user.getRole().equals("ADMIN"))
+			{
+				mv.addObject("role", "Admin");
+			}
+			else
+			{
+				mv.addObject("role", "Customer");
+			}
+			
+			mv.addObject("successMessage", "Valid Credentials");
+			session.setAttribute("loginMessage", "Welcome :" +mail);
 		}
 		else
 		{
-		mv.addObject("msg","Invalid Credential");
+			mv.addObject("errorMessage", "InValid Credentials...please try again");
 		}
+		
 		return mv;
+		
 	}
 	
 	@RequestMapping("/logout")
@@ -100,10 +126,13 @@ public class HomeController {
 			return mv;
 	}
 	
-	
-	
-	
-	
+	@RequestMapping(value="/showAll")
+	public ModelAndView showAll(){
+		List<Product> lt = productDao.list();
+		ModelAndView md = new ModelAndView("showAll","prdList",lt);
+		return md;
+	}
+		
 	
 	
 	

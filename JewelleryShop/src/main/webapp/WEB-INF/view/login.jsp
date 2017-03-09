@@ -39,11 +39,12 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<form id="login-form" action="<c:url value='validate'/>" method="post" role="form" style="display: block;">
+								
 									<div class="form-group">
-										<input type="text"  id="emailID" name="emailID" tabindex="1" class="form-control" placeholder="Username" value="">
+										<input type="text"  id="emailID" name="mail" tabindex="1" class="form-control" placeholder="Username" value="${user.mail} ">
 									</div>
 									<div class="form-group">
-										<input type="password"  id="password" name="password" tabindex="2" class="form-control" placeholder="Password">
+										<input type="password"  id="password" name="password" tabindex="2" class="form-control" placeholder="Password" value="${user.password} ">
 									</div>
 									<div class="form-group text-center">
 										<input type="checkbox" tabindex="3" class="" name="remember" id="remember">
@@ -65,6 +66,7 @@
 											</div>
 										</div>
 									</div>
+									
 								</form>
 								<form id="register-form" action="<c:url value='validate'/>" method="post" role="form" style="display: none;">
 									<div class="form-group">

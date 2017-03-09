@@ -5,3 +5,13 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.no-margin
+{
+	margin:0px;
+}
+
+.no-padding
+{
+	padding:0px;
+}
