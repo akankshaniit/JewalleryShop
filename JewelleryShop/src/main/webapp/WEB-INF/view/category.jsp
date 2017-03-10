@@ -6,50 +6,62 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet"  type="text/css" href="resources/css/style6.css">
+
+<style>
+  .msgblock {
+ color: blue;
+ background-color: lightgreen;
+ border: 3px solid blue;
+ padding: 8px;
+}
+  </style>
 
 
 </head>
 <body>
 <jsp:include page="/WEB-INF/view/shared/header.jsp"></jsp:include> 
-${categoryList}
 
-<h2>Manage Category</h2>
-
-<form action="">
+<center><form action="manage_category_create" method="post">
 <input type="text" name="id">
 <input type="text" name="name">
 <input type="text" name="description">
-<input type="submit" value="create">
+<input type="submit" value="create"></form></center>
+<br><br>
 
 
+<div class="container" >
 
-<hr>
-<table border="2">
-<thead>
-<tr>
-<td>ID</td>
-<td>Name</td>
-<td>Description</td>
-
-</tr>
-</thead>
-
-<c:forEach var="category" items="${categoryList}" >
-<tr>
-
-<td>${category.id}</td>
-<td>${category.name}</td>
-<td>${category.description}</td>
-<td><a href="/manage_category_edit">Edit</a> | <a href="/manage_category_delete">Delete</a></td>
-
-</tr>
-</c:forEach>
-<hr>
-</table>
-
-
-
+<c:if test="${not empty msg }">
+   <div class="msgblock">
+   <c:out value="${msg}" />
+   </div>
+ </c:if>
+	
+	<table class="table table-striped;">
+	<tr>
+	<th></th>
+	<th>Id </th>
+	<th>Name</th>
+	<th>Description</th>
+	
+	<th></th>
+	</tr>
+	<c:forEach var="category" items="${catList}" >
+	<tr  >
+	<!-- <td><img alt="NO IMAGE" height="50px" width="50px" src="<c:url value='/resources/Images/{product.category}/{product.image}'/>" /></td>  -->
+	<td>${category.id}</td>
+	<td>${category.name}</td>
+	<td>${category.description}</td>
+	<td>
+			
+			|<a href="" >Edit</a>|
+			<a href="" >Delete</a>
+		
+	</td>
+	</tr>
+	
+	</c:forEach>
+	</div>
 
 
 

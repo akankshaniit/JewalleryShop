@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.niit.dao.CategoryDAO;
 import com.niit.dao.ProductDAO;
 import com.niit.dao.UserDAO;
+import com.niit.model.Category;
 import com.niit.model.Product;
 import com.niit.model.User;
 
@@ -27,7 +29,8 @@ public class HomeController {
 	UserDAO userDAO;
 	//@Autowired
 	//User user;
-	
+	@Autowired
+	CategoryDAO categoryDao;
 	
 	
 	@RequestMapping("/")
@@ -136,8 +139,20 @@ public class HomeController {
 		return md;
 	}
 		
+	@RequestMapping("/adminhome")
+	public ModelAndView myadmin()
+	{
+		
+	ModelAndView mv=new ModelAndView("adminhome");
+			return mv;
+	}
 	
-	
+	@RequestMapping(value="/category")
+	public ModelAndView category(){
+		List<Category> ct = categoryDao.list();
+		ModelAndView md = new ModelAndView("category","catList",ct);
+		return md;
+	}
 	
 	
 }

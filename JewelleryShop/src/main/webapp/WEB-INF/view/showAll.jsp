@@ -31,9 +31,9 @@
 	<table class="table table-striped;">
 	<tr>
 	<th></th>
-	<th>Product </th>
-	<th>Quantity Available</th>
-	<th>Price</th>
+	<th>Product id </th>
+	<th>product Name</th>
+	<th>Quantity</th>
 	<th></th>
 	</tr>
 	<c:forEach var="product" items="${prdList}" >

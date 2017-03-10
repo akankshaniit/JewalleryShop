@@ -23,7 +23,7 @@
 <jsp:include page="/WEB-INF/view/shared/header.jsp"></jsp:include>
 
 
-<jsp:include page="/WEB-INF/view/adminhome.jsp"></jsp:include>
+
 
 
 
