@@ -38,7 +38,7 @@
     					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
-								<form id="login-form" action="<c:url value='validate'/>" method="post" role="form" style="display: block;">
+								<form id="login-form" action="<c:url value='validate'/>"var="user" items="${user} "  method="post" role="form" style="display: block;">
 								
 									<div class="form-group">
 										<input type="text"  id="emailID" name="mail" tabindex="1" class="form-control" placeholder="Username" value="${user.mail} ">

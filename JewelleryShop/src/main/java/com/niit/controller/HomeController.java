@@ -25,8 +25,8 @@ public class HomeController {
 	ProductDAO productDao;
 	@Autowired
 	UserDAO userDAO;
-	@Autowired
-	User user;
+	//@Autowired
+	//User user;
 	
 	
 	
@@ -85,7 +85,10 @@ public class HomeController {
 			{
 		
 		System.out.println("Validating..........");
-		ModelAndView mv=new ModelAndView("/home");
+		User user=userDAO.getUser(mail);
+		//User user=userDAO.getUser(pwd);
+		
+		ModelAndView mv=new ModelAndView( "/home","valid",user);
 		if(userDAO.validate(mail, pwd)==true)
 		{
           user = userDAO.getUser(mail);
