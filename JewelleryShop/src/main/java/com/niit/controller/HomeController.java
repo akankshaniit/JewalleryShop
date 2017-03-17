@@ -13,9 +13,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.niit.dao.CategoryDAO;
 import com.niit.dao.ProductDAO;
+import com.niit.dao.SupplierDAO;
 import com.niit.dao.UserDAO;
 import com.niit.model.Category;
 import com.niit.model.Product;
+import com.niit.model.Supplier;
 import com.niit.model.User;
 
 @Controller
@@ -31,7 +33,8 @@ public class HomeController {
 	//User user;
 	@Autowired
 	CategoryDAO categoryDao;
-	
+	@Autowired
+	SupplierDAO supplierDao;
 	
 	@RequestMapping("/")
 	public ModelAndView home()
@@ -134,25 +137,22 @@ public class HomeController {
 	
 	@RequestMapping(value="/showAll")
 	public ModelAndView showAll(){
+		System.out.println("show all pages");
 		List<Product> lt = productDao.list();
 		ModelAndView md = new ModelAndView("showAll","prdList",lt);
 		return md;
 	}
 		
-	@RequestMapping("/adminhome")
+	@RequestMapping("/Admin/adminhome")
 	public ModelAndView myadmin()
 	{
 		
-	ModelAndView mv=new ModelAndView("adminhome");
+	ModelAndView mv=new ModelAndView("/Admin/adminhome");
 			return mv;
 	}
 	
-	@RequestMapping(value="/category")
-	public ModelAndView category(){
-		List<Category> ct = categoryDao.list();
-		ModelAndView md = new ModelAndView("category","catList",ct);
-		return md;
-	}
+	
+	
 	
 	
 }

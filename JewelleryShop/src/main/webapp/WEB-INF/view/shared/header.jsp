@@ -68,10 +68,9 @@
        
         <li><a href="contact">Contact Us</a></li>
        <li><a href="showAll">All Products</a></li>
-       <li><a href="adminhome">Admin Page</a></li>
+       <li><a href="Admin/adminhome">Admin Page</a></li>
       
       
-        
       </ul>
       <ul class="nav navbar-nav navbar-right">
       

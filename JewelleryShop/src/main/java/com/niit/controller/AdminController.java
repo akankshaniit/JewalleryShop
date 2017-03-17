@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.niit.dao.CategoryDAO;
+import com.niit.dao.ProductDAO;
+import com.niit.dao.SupplierDAO;
 import com.niit.model.Category;
+import com.niit.model.Product;
+import com.niit.model.Supplier;
 
 @Controller
 public class AdminController {
@@ -16,40 +20,64 @@ public class AdminController {
 	@Autowired
 	CategoryDAO categoryDao;
 	
+	@Autowired
+	SupplierDAO supplierDao;
 	
-	@RequestMapping("/manage_category")
+	@Autowired
+	ProductDAO productDao;
+	
+	
+	
+	
+	@RequestMapping("/Admin/manage_category")
 	public ModelAndView manageCategory()
 	{
 		System.out.println("ManageCategories");
 		//List<Category> ct = categoryDao.list();
 
-		ModelAndView mv=new ModelAndView("category");
+		
+		
+		
+		ModelAndView mv=new ModelAndView("/Admin/category");
 		mv.addObject("isUserClickedCategories","true");
 		
-		//something i have to add please check notebook
-		return mv;
+		List<Category> categoryList= categoryDao.list();
+		
+		mv.addObject("categoryList", categoryList);
+		
+		mv.addObject("cat",new Category());     //To access the category domain in category */
+		
+return mv;
 		
 	}
 
-	@RequestMapping("/manage_product")
+	@RequestMapping("/Admin/manage_products")
 	public ModelAndView manageProducts()
 	{
 		System.out.println("ManageProduct");
-		ModelAndView mv=new ModelAndView("adminhome");
-		mv.addObject("isUserClickedCategories","true");
+		ModelAndView mv=new ModelAndView("/Admin/product");
+		mv.addObject("isUserClickedproducts","true");
 		
-		//something i have to add please check notebook
+       List<Product> productList= productDao.list();
+		
+		mv.addObject("productList", productList);
+		mv.addObject("prd",new Product());    
+		
 		return mv;
 		
 	}
-	@RequestMapping("/manage_suppliers")
+	@RequestMapping("/Admin/manage_suppliers")
 	public ModelAndView manageSuppliers()
 	{
 		System.out.println("ManageSppliers");
-		ModelAndView mv=new ModelAndView("adminhome");
-		mv.addObject("isUserClickedCategories","true");
+		ModelAndView mv=new ModelAndView("/Admin/supplier");
+		mv.addObject("isUserClickedSuppliers","true");
 		
-		//something i have to add please check notebook
+        List<Supplier> supplierList= supplierDao.list();
+		
+		mv.addObject("supplierList", supplierList);
+		mv.addObject("sup",new Supplier());    
+		
 		return mv;
 		
 	}

@@ -1,0 +1,146 @@
+package com.niit.controller;
+
+import java.lang.ProcessBuilder.Redirect;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
+
+import com.niit.dao.CategoryDAO;
+import com.niit.model.Category;
+
+
+@Controller
+public class CategoryController {
+	
+	
+	@Autowired
+	private CategoryDAO categoryDao;
+
+	@RequestMapping(value="/Admin/create_category",method=RequestMethod.POST)
+	public ModelAndView createCategory(@ModelAttribute("cat") @Validated Category category,BindingResult result, Model model){
+		
+		
+		ModelAndView mv = new ModelAndView("/Admin/category");
+		if (result.hasErrors()) {
+			
+
+			
+		} else {
+		categoryDao.save(category);
+		
+		mv.addObject("msg","Category added Successfully");
+		
+		}
+List<Category> categoryList= categoryDao.list();
+mv.addObject("categoryList", categoryList);
+		return mv;
+		
+	}
+	
+	
+	@RequestMapping(value = "/Admin/manage_category_delete/{id}", method = RequestMethod.GET)
+	public ModelAndView deletecategory(@PathVariable("id") String id) {
+		
+		ModelAndView mv = new ModelAndView("/Admin/category");
+		Category ct=categoryDao.getCategoryByID(id);
+		boolean dt=categoryDao.delete(ct);
+		mv.addObject("cat",ct);
+		
+		return mv;
+	}
+
+	
+	
+	
+	
+	
+	
+	@RequestMapping(value="/Admin/category_delete", method=RequestMethod.POST)
+	public ModelAndView deleteCategory(@ModelAttribute("cat") @Validated Category ct
+	, BindingResult result, Model model)
+	{
+		
+		ModelAndView mv = new ModelAndView("/Admin/category");
+		
+       if (result.hasErrors()) {
+			
+       }
+		
+		 else 
+		{
+			categoryDao.delete(ct);
+			mv.addObject("message", "Successfully delete the category");
+		}
+       
+       List<Category> categoryList= categoryDao.list();
+       mv.addObject("categoryList", categoryList);
+       		
+       return mv;
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	@RequestMapping(value="Admin/category_edit",method=RequestMethod.POST)
+	public ModelAndView editCategory(@ModelAttribute("cat") @Validated Category ct
+			, BindingResult result, Model model){
+	
+		ModelAndView mv = new ModelAndView("/Admin/category");
+		if (result.hasErrors()) {
+			
+
+			
+		} else {
+		categoryDao.update(ct);
+		
+		mv.addObject("msg","Category updated Successfully");
+		
+		}
+List<Category> categoryList= categoryDao.list();
+mv.addObject("categoryList", categoryList);
+		return mv;
+		
+		
+		
+	}
+	
+	@RequestMapping(value="/Admin/manage_category_edit/{id}",method=RequestMethod.GET)
+	public ModelAndView editCategory(@PathVariable("id") String id){
+		ModelAndView mv = new ModelAndView("/Admin/category");
+		Category ct=categoryDao.getCategoryByID(id);
+		List<Category> categoryList= categoryDao.list();
+		
+		mv.addObject("categoryList", categoryList);
+		
+		mv.addObject("cat",ct); 
+		mv.addObject("editing",true);
+		return mv;
+				
+		
+		
+	}
+	
+	
+}
+
+   
