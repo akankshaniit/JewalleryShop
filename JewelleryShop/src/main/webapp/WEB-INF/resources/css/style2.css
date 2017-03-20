@@ -36,7 +36,12 @@
     background-color: #AA0000;
 }
 
-
+.msgblock {
+ color: blue;
+ background-color: lightgreen;
+ border: 3px solid blue;
+ padding: 8px;
+}
 
 
 

@@ -86,6 +86,26 @@ mv.addObject("supplierList", supplierList);
 		
 		
 	}
+
+	@RequestMapping("/Admin/supplier_delete/{id}")
+//	public ModelAndView deleteCategory(@PathVariable("id") String id, Model model) throws Exception {
+	public ModelAndView deleteSupplier(@PathVariable("id") String id, Model model) throws Exception {
+
+		ModelAndView mv = new ModelAndView("/Admin/supplier");
+			boolean flag=supplierDao.delete(id);
+		if(flag = true)
+		mv.addObject("msg","supplier Deleted Successfully");
+		else
+			mv.addObject("msg","supplier not Deleted");
+		
+List<Supplier> supplierList= supplierDao.list();
+mv.addObject("supplierList", supplierList);
+mv.addObject("sup",new Supplier());
+		return mv;
+		
+	}
+	
+	
 	
 	
 

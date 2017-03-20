@@ -17,6 +17,8 @@
  border: 3px solid blue;
  padding: 8px;
 }
+
+
 .errStyle {
 	color:red;
 	font-style: italic;
@@ -82,7 +84,7 @@
 </form:label>
 </td>
 <td>
-<form:input  path="image" />
+<form:input type="file"   path="file" />
 </td>
 
 <td>
@@ -133,7 +135,7 @@
 </td>
 
 <td colspan="2">
-<form:errors path="image" >
+<form:errors path="file" >
 <p class="errStyle">
 * Cannot be Empty
 </p>
@@ -163,7 +165,7 @@
 	<th>Quantity</th>
 	<th>Image</th>
 	
-	<th></th>
+	<th>Action</th>
 	</tr>
 	<c:forEach var="product" items="${productList}" >
 	<tr  >
@@ -183,7 +185,7 @@
 
 								<a class="btn btn-primary"
 									onclick="return confirm('Are you sure you want to delete this Category?');"
-									href="<c:url value='manage_product_delete/${product.id}' />"> 
+									href="<c:url value='/Admin/product_delete/${product.id}' />"> 
 									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
 								</a>
 

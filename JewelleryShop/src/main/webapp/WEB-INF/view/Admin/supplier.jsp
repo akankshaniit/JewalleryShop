@@ -40,11 +40,11 @@
 
 
 <form:form  action="${saveorupdate}" modelAttribute="sup">
-<table style="width: 100%; text-align: center;">
+<table style="width: 100%; text-align: right;">
 <tr>
 <td>
  <form:label  path="id">
-				<spring:message text="  Spplier Id:"/>
+				<spring:message text="  Supplier Id:"/>
 </form:label>
 </td>
 <td>
@@ -60,7 +60,7 @@
 </td>
 <td>
  <form:label  path="address">
-				<spring:message text="Address:"/>
+				<spring:message text="Supplier Address:"/>
 </form:label>
 </td>
 <td>
@@ -142,7 +142,7 @@
 
 								<a class="btn btn-primary"
 									onclick="return confirm('Are you sure you want to delete this Category?');"
-									href="<c:url value='manage_supplier_delete/${supplier.id}' />"> 
+									href="<c:url value='/Admin/supplier_delete/${supplier.id}' />"> 
 									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
 								</a>
 

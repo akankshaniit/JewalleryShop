@@ -139,7 +139,7 @@
 
 								<a class="btn btn-primary"
 									onclick="return confirm('Are you sure you want to delete this Category?');"
-									href="<c:url value='manage_category_delete/${category.id}' />"> 
+									href="<c:url value='/Admin/category_delete/${category.id}' />"> 
 									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
 								</a>
 

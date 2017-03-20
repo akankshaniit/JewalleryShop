@@ -34,6 +34,8 @@ public class ProductController {
 
 			
 		} else {
+			product.setImage(product.getFile().getOriginalFilename());
+			productDao.storeFile(product, request);
 		productDao.save(product);
 		
 		mv.addObject("msg","product added Successfully");
@@ -82,6 +84,24 @@ mv.addObject("productList", productList);
 		return mv;
 		
 		
+		
+	}
+	
+	@RequestMapping("/Admin/product_delete/{id}")
+//	public ModelAndView deleteCategory(@PathVariable("id") String id, Model model) throws Exception {
+	public ModelAndView deleteProduct(@PathVariable("id") String id, Model model) throws Exception {
+
+		ModelAndView mv = new ModelAndView("/Admin/product");
+			boolean flag=productDao.delete(id);
+		if(flag = true)
+		mv.addObject("msg","Product Deleted Successfully");
+		else
+			mv.addObject("msg","Product not Deleted");
+		
+List<Product> productList= productDao.list();
+mv.addObject("productList", productList);
+mv.addObject("prd",new Product());
+		return mv;
 		
 	}
 	

@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,9 +30,12 @@ import com.niit.model.Category;
 @Controller
 public class CategoryController {
 	
+	private static Logger log = LoggerFactory.getLogger(CategoryController.class);
+
 	
 	@Autowired
 	private CategoryDAO categoryDao;
+	
 
 	@RequestMapping(value="/Admin/create_category",method=RequestMethod.POST)
 	public ModelAndView createCategory(@ModelAttribute("cat") @Validated Category category,BindingResult result, Model model){
@@ -54,49 +59,7 @@ mv.addObject("categoryList", categoryList);
 	}
 	
 	
-	@RequestMapping(value = "/Admin/manage_category_delete/{id}", method = RequestMethod.GET)
-	public ModelAndView deletecategory(@PathVariable("id") String id) {
-		
-		ModelAndView mv = new ModelAndView("/Admin/category");
-		Category ct=categoryDao.getCategoryByID(id);
-		boolean dt=categoryDao.delete(ct);
-		mv.addObject("cat",ct);
-		
-		return mv;
-	}
 
-	
-	
-	
-	
-	
-	
-	@RequestMapping(value="/Admin/category_delete", method=RequestMethod.POST)
-	public ModelAndView deleteCategory(@ModelAttribute("cat") @Validated Category ct
-	, BindingResult result, Model model)
-	{
-		
-		ModelAndView mv = new ModelAndView("/Admin/category");
-		
-       if (result.hasErrors()) {
-			
-       }
-		
-		 else 
-		{
-			categoryDao.delete(ct);
-			mv.addObject("message", "Successfully delete the category");
-		}
-       
-       List<Category> categoryList= categoryDao.list();
-       mv.addObject("categoryList", categoryList);
-       		
-       return mv;
-		
-		
-		
-	}
-	
 	
 	
 	
@@ -139,6 +102,26 @@ mv.addObject("categoryList", categoryList);
 		
 		
 	}
+	@RequestMapping("/Admin/category_delete/{id}")
+//	public ModelAndView deleteCategory(@PathVariable("id") String id, Model model) throws Exception {
+	public ModelAndView deleteCategory(@PathVariable("id") String id, Model model) throws Exception {
+
+		ModelAndView mv = new ModelAndView("/Admin/category");
+			boolean flag=categoryDao.delete(id);
+		if(flag = true)
+		mv.addObject("msg","Category Deleted Successfully");
+		else
+			mv.addObject("msg","Category not Deleted");
+		
+List<Category> categoryList= categoryDao.list();
+mv.addObject("categoryList", categoryList);
+mv.addObject("cat",new Category());
+		return mv;
+		
+	}
+	
+	
+	
 	
 	
 }
