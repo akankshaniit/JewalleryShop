@@ -9,7 +9,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-
 <style>
   .msgblock {
  color: blue;
@@ -26,8 +25,6 @@
 	text-align: right;
 }
   </style>
-
-
 </head>
 <body>
 <jsp:include page="/WEB-INF/view/shared/header.jsp"></jsp:include> 
@@ -39,67 +36,79 @@
 <c:set var="saveorupdate" value="/JewelleryShop/Admin/product_edit"></c:set>
 
 </c:if>
-
-
-<form:form  action="${saveorupdate}" modelAttribute="prd">
+<div class="container" >
+<form:form  enctype="multipart/form-data" action="${saveorupdate}"  modelAttribute="prd">
 <table style="width: 100%; text-align: center;">
-<tr>
-<td>
- <form:label  path="id">
-				<spring:message text="  Product Id:"/>
-</form:label>
-</td>
-<td>
-<form:input  path="id" />
-</td>
-<td>
- <form:label  path="name">
-				<spring:message text="Product Name:"/>
-</form:label>
-</td>
-<td>
-<form:input  path="name" />
-</td>
-<td>
- <form:label  path="price">
-				<spring:message text="Price:"/>
-</form:label>
-</td>
-<td>
-<form:input  path="price" />
-</td>
+	<tr>
+		<td>
+				 <form:label  path="id">
+					<spring:message text="  Product Id:"/>
+				 </form:label>
+		</td>
+		<td>
+				<form:input  path="id" />
+		</td>
+		
+		<td>
+				 <form:label  path="name">
+					<spring:message text="Product Name:"/>
+				</form:label>
+		</td>
+		<td>
+				<form:input  path="name" />
+		</td>
+		<td>
+ 				<form:label  path="price">
+					<spring:message text="Price:"/>
+				</form:label>
+		</td>
+		<td>
+				<form:input  path="price" />
+		</td>
 
-<td>
- <form:label  path="qty">
-				<spring:message text="Quantity:"/>
-</form:label>
-</td>
-<td>
-<form:input  path="qty" />
-</td>
+		<td>
+ 				<form:label  path="categoryId">
+					<spring:message text="Category:"/>
+				</form:label>
+		</td>
+		<td>
+				<form:select  path="categoryId" >
+					<c:forEach var="cat" items="${catList}">
+						<form:option value="${cat.id}">${cat.name}</form:option>
+					</c:forEach>
+				</form:select>
+		</td>
+		<td>
+ 				<form:label  path="qty">
+					<spring:message text="Quantity:"/>
+				</form:label>
+		</td>
+		<td>	
+				<form:input  path="qty" />
+		</td>
 
-<td>
- <form:label  path="image">
-				<spring:message text="Image:"/>
-</form:label>
-</td>
-<td>
-<form:input type="file"   path="file" />
-</td>
+		<td>
+ 				<form:label  path="file">
+					<spring:message text="Image: "/>
+				</form:label>
+		</td>
+		<td>
+				<form:input type="file"   path="file" />
+		</td>
 
-<td>
-<c:if test="${not editing}" >
+		<td>  
+				<c:if test="${not editing}" >
  
- <input  class="btn btn-info"  type="submit"
+ 				<input  class="btn btn-info"  type="submit"
 					value="Add Product" />
-</c:if>
-<c:if test="${editing}" >
+				</c:if>
+				<c:if test="${editing}" >
  
- <input  class="btn btn-info"  type="submit"
+ 				<input  class="btn btn-info"  type="submit"
 					value="Update Product" />
-</c:if>
+				</c:if>
 					
-</td>
+		</td>
 </tr>
 <tr>
 <td colspan="2">
@@ -125,6 +134,7 @@
  </form:errors>
 
 </td>
+<td colspan="2"></td>
 
 <td colspan="2">
 <form:errors path="qty" >
@@ -148,7 +158,7 @@
 <br><br>
 
 
-<div class="container" >
+
 
 <c:if test="${not empty msg }">
    <div class="msgblock">
@@ -158,41 +168,45 @@
 	
 	<table class="table table-striped;">
 	<tr>
-	
-	<th>Id </th>
+		<th>Image</th>
 	<th>Name</th>
 	<th>Price</th>
-	<th>Quantity</th>
-	<th>Image</th>
+	
+
 	
 	<th>Action</th>
 	</tr>
 	<c:forEach var="product" items="${productList}" >
 	<tr  >
-	<!-- <td><img alt="NO IMAGE" height="50px" width="50px" src="<c:url value='/resources/Images/{product.category}/{product.image}'/>" /></td>  -->
-	<td>${product.id}</td>
+	 <td><img alt="NO IMAGE" height="50px" width="50px" src="<c:url value='/resources/images/${product.image}'/>" /></td> 
 	<td>${product.name}</td>
 	<td>${product.price}</td>
-	<td>${product.qty}</td>
-	<td>${product.image}</td>
+	
+	
 	<td>
 			
 			<a class="btn btn-primary"
 									onclick="return confirm('Are you sure you want to edit this category?');"
 									href="<c:url value='manage_product_edit/${product.id}' />"> 
-									<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
+									<span class="glyphicon glyphicon-pencil" ></span> Edit
 								</a>
 
 								<a class="btn btn-primary"
 									onclick="return confirm('Are you sure you want to delete this Category?');"
 									href="<c:url value='/Admin/product_delete/${product.id}' />"> 
-									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
+									<span class="glyphicon glyphicon-trash" ></span> Delete
+								</a>
+								<a class="btn btn-primary"
+									href="<c:url value='/showproduct/${product.id}' />">
+									 Details
 								</a>
 
+					
+
 	</td>
-	</tr>
-	
+	</tr>	
 	</c:forEach>
+	</table>
 	</div>
 
 

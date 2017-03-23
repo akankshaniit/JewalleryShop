@@ -20,37 +20,28 @@
   </style>
 </head>
 <body>
+
+<jsp:include page="/WEB-INF/view/shared/header.jsp"></jsp:include> 
 <div class="container" >
 
-<c:if test="${not empty msg }">
-   <div class="msgblock">
-   <c:out value="${msg}" />
-   </div>
- </c:if>
-	
-	<table class="table table-striped;">
-	<tr>
-	<th></th>
-	<th>Product id </th>
-	<th>product Name</th>
-	<th>Quantity</th>
-	<th></th>
-	</tr>
-	<c:forEach var="product" items="${prdList}" >
-	<tr  >
-	<!-- <td><img alt="NO IMAGE" height="50px" width="50px" src="<c:url value='/resources/Images/{product.category}/{product.image}'/>" /></td>  -->
-	<td>${product.id}</td>
-	<td>${product.name}</td>
-	<td>${product.qty}</td>
-	<td>
-			
-			|<a href="" >Edit</a>|
-			<a href="" >Delete</a>
-		
-	</td>
-	</tr>
-	
-	</c:forEach>
+	<table class="table table-striped;" style="width: 100%">
+	   <tr>     
+	        
+	        <td style="text-align: center;" colspan="2"><img width="300px" height="300px" alt="NO IMAGE" src="<c:url value='/resources/images/${product.image}'/>" /></td>
+	   </tr>    
+		    <tr>
+	         <th>Product ID </th>
+	         <td>${product.id}</td>
+	   </tr>
+	   <tr>   
+	         <th>product Name</th>
+	         <td>${product.name}</td>
+	   </tr>
+	    
+	   <tr>     
+	         <th>Price</th>
+	         <td>${product.price}</td>
+	   </tr> 
 	</div>
 </body>
 </html>

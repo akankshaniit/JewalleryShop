@@ -61,7 +61,8 @@ return mv;
        List<Product> productList= productDao.list();
 		
 		mv.addObject("productList", productList);
-		mv.addObject("prd",new Product());    
+		mv.addObject("prd",new Product());   
+		mv.addObject("catList", categoryDao.list());
 		
 		return mv;
 		

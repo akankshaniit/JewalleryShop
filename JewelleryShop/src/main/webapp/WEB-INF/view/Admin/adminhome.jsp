@@ -18,7 +18,7 @@
 <title>Admin Homepage</title>
 
 
-<link rel="stylesheet"  type="text/css" href="resources/css/style7.css">
+<link rel="stylesheet"  type="text/css" href="/JewelleryShop/resources/css/style7.css">
 
 </head>
 <body>
@@ -26,11 +26,11 @@
 
 
 <h2><center> Welcome Admin</center></h2>
-<center><h3><a href="manage_category">Manage Categories</a></h3></center>
+<center><h2><a href="manage_category">Manage Categories</a></center></h2>
 <br><br>
-<h2><center><a href="manage_suppliers">Manage Supplier</a></h3></center>
+<h2><center><a href="manage_suppliers">Manage Supplier</a></center></h2>
 <br><br>
-<h2><center><a href="manage_products">Manage Product</a></h3></center>
+<h2><center><a href="manage_products">Manage Product</a></center></h2>
 
 <c:if test="${isUserClickedCategories==true} ">
 <jsp:include page="category.jsp"></jsp:include>

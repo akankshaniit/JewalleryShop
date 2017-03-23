@@ -67,11 +67,12 @@
 						<div class="row">
 							<div class="col-lg-12">
 							
-								<form:form action="validate"   id="login-form" modelAttribute="user"  var="user" items="${user}"  method="post" role="form" style="display: block;">
+							<c:url var="action" value="j_spring_security_check"></c:url>
+								<form:form action="${action}"   id="login-form" modelAttribute="user"  var="user" items="${user}"  method="post" role="form" style="display: block;">
 								
 								
 									<div class="form-group">
-										<form:input type="text" id="mail" path="mail" name="mail" tabindex="1" class="form-control" placeholder="Username" value="${user.mail}"></form:input>
+										<form:input type="text" id="mail" path="mail" name="username" tabindex="1" class="form-control" placeholder="Username" value="${user.mail}"></form:input>
 									</div>
 									<div class="has-error">
 									<form:errors path="mail" >
