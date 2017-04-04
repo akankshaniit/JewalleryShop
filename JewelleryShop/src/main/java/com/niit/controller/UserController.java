@@ -1,5 +1,6 @@
 package com.niit.controller;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,8 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,9 +49,7 @@ public class UserController {
 	private HttpSession session;
 	
 	@Autowired
-	private CategoryDAO categoryDAO;
-
-	
+	private CategoryDAO categoryDAO;	
 @Autowired
 private UserDAO userDAO;
 	@Autowired
@@ -69,10 +69,11 @@ private UserDAO userDAO;
 	@RequestMapping(value = "/loginError", method = RequestMethod.GET)
 	public String loginError(Model model) {
 		log.debug("Starting of the method loginError");
-		model.addAttribute("errorMessage", "Invalid Credentials.  Please try again.");
+		model.addAttribute("msg", "Invalid Credentials.  Please try again.");
 		model.addAttribute("invalidCredentials", "true");
+		model.addAttribute("user",new User());
 		log.debug("Ending of the method loginError");
-		return "home";
+		return "login";
 
 	}
 
@@ -80,10 +81,10 @@ private UserDAO userDAO;
 	@RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
 	public String accessDenied(Model model) {
 		log.debug("Starting of the method accessDenied");
-		model.addAttribute("errorMessage", "You are not authorized to access this page");
-
+		model.addAttribute("msg", "Please Login With Right Credentials to access this page");
+		model.addAttribute("user",new User());
 		log.debug("Ending of the method accessDenied");
-		return "home";
+		return "login";
 
 	}
 	// <security:form-login authentication-success-forward-url="/success"/>
@@ -115,50 +116,75 @@ private UserDAO userDAO;
  * @return
  * @throws Exception
  */
-	@RequestMapping(value = "validate", method = RequestMethod.GET)
+	@RequestMapping(value = "/validate",method=RequestMethod.GET)
 	public ModelAndView validate(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		log.debug("starting of the method validate");
-		ModelAndView mv = new ModelAndView("home");
+		ModelAndView mv ;
 		 session = request.getSession(true);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String userID = auth.getName();
-		
+		Collection<? extends GrantedAuthority> authority=auth.getAuthorities();
+		System.out.println(userID);
 		session.setAttribute("loggedInUser", userID);
 		session.setAttribute("LoginMessage", "WELCOME "+userDAO.getUserByMail(userID).getName());
+		for (GrantedAuthority grantedAuthority : authority) {
+			if(grantedAuthority.getAuthority().equals("ROLE_ADMIN")){
+				mv= new ModelAndView("Admin/adminhome");
+				session.setAttribute("isAdmin", true);
+				return mv;
+			}
+			if(grantedAuthority.getAuthority().equals("ROLE_USER")){
+				mv= new ModelAndView("home");
+				session.setAttribute("isUser", true);
+				return mv;
+			}
+		}
+		mv= new ModelAndView("home");
 
-		if (request.isUserInRole("ADMIN")) {
+		session.setAttribute("isAdmin", false);
+		session.setAttribute("isUser", false);
+		return mv;
 
+
+	/*	if (request.isUserInRole("ADMIN")) {
+
+			mv= new ModelAndView("Admin/adminhome");
 			session.setAttribute("isAdmin", true);
 
 		} else {
+			mv= new ModelAndView("home");
 
 			session.setAttribute("isAdmin", false);
 			
-		/*	mv.addObject("myCart", myCart);
+			mv.addObject("myCart", myCart);
 			// Fetch the myCart list based on user ID
 			List<MyCart> mycartList = mycartDAO.list(userID);
 			mv.addObject("cartList", mycartList);
 			mv.addObject("cartSize", mycartList.size());
 			mv.addObject("totalAmount", mycartDAO.getTotalAmount(userID));
 
-			*/
+			
 
 		}
 		log.debug("Ending of the method validate");
-		return mv;
+		return mv; */
 	}
 	
 	
-	@RequestMapping("/secure_logout")
-	public ModelAndView secureLogout()
+	@RequestMapping(value="/logout" ,method = RequestMethod.GET)
+	public ModelAndView secureLogout(HttpServletRequest request,HttpServletResponse response)
 	{
-		//what you attach to session at the time login need to remove.
+		/* Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		 if (auth != null) {
+		 new SecurityContextLogoutHandler().logout(request, response, auth);
+		 }*/
+	 
 		
-		
-		session.invalidate();
-		
-		ModelAndView mv = new ModelAndView("home");
-		
+	 session.removeAttribute("LoginMessage");
+	 session.removeAttribute("isAdmin");
+	
+		ModelAndView mv = new ModelAndView("login");
+	
 		//After logout also use should able to browse the categories and products
 		//as we invalidated the session, need to load these data again.
 		
@@ -178,7 +204,9 @@ private UserDAO userDAO;
 		
 		//session.removeAttribute("loggedInUser"); // you no need to load categoriees,suppliers and products
 	
-		return mv;
+		 mv.addObject("msg", "Logged Out Successfully");
+		 mv.addObject("user", new User());
+		 return mv;
 		
 	}
 	
@@ -194,7 +222,7 @@ private UserDAO userDAO;
 			
 		} else {
 		
-			user.setRole("USER");
+			user.setRole("ROLE_USER");
 		boolean created=userDAO.save(user);
 		if(created)
 		mv.addObject("msg","User Register Successfully");

@@ -136,7 +136,7 @@
 			
 			<a class="btn btn-primary"
 									onclick="return confirm('Are you sure you want to edit this category?');"
-									href="<c:url value='manage_supplier_edit/${supplier.id}' />"> 
+									href="<c:url value='/Admin/manage_supplier_edit/${supplier.id}' />"> 
 									<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
 								</a>
 

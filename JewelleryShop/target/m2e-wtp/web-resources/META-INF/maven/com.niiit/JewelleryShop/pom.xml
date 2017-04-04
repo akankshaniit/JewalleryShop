@@ -4,6 +4,7 @@
   <groupId>com.niiit</groupId>
   <artifactId>JewelleryShop</artifactId>
   <packaging>war</packaging>
+  
   <version>0.0.1-SNAPSHOT</version>
   <name>JewelleryShop Maven Webapp</name>
   <url>http://maven.apache.org</url>  
@@ -85,9 +86,18 @@
     <version>4.2.2.RELEASE</version>
 </dependency>
 
-   	
-  	
-  	
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-config</artifactId>
+    <version>4.2.2.RELEASE</version>
+</dependency>
+
+  <dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-taglibs</artifactId>
+    <version>4.2.2.RELEASE</version>
+</dependency>
+
   </dependencies>
 
 <build>

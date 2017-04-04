@@ -1,17 +1,12 @@
 package com.niit.controller;
 
-import java.util.Collection;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,7 +34,7 @@ public class CartController {
 	@Autowired
 	private HttpSession session;
 
-	@RequestMapping(value = "/myCart", method = RequestMethod.GET)
+	@RequestMapping(value = {"/myCart","/allproducts"}, method = RequestMethod.GET)
 	public String myCart(Model model) {
 		log.debug("Starting of the method myCart");
 		model.addAttribute("myCart", new MyCart());
@@ -50,7 +45,7 @@ public class CartController {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			loggedInUserid = auth.getName();
 			Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>)   auth.getAuthorities();
-			authorities.contains("ROLE_USER");
+			authorities.contains("USER");
 			
 		}*/
 		if(loggedInUserid!=null)
@@ -70,7 +65,7 @@ public class CartController {
 		
 		}
 		log.debug("Ending of the method myCart");
-		return "/home";
+		return "/cart";
 	}
 
 	// For add and update myCart both
@@ -98,8 +93,8 @@ public class CartController {
 		mycartDAO.save(myCart);
 		// return "redirect:/views/home.jsp";
 
-		ModelAndView mv = new ModelAndView("redirect:/home");
-		mv.addObject("successMessage", " Successfuly add the product to myCart");
+		ModelAndView mv = new ModelAndView("redirect:/allProducts");
+		mv.addObject("msg", " Successfuly add the product to myCart");
 		log.debug("Ending of the method addToCart");
 		return mv;
 

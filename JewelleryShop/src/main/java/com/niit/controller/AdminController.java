@@ -41,9 +41,6 @@ public class AdminController {
 		ModelAndView mv=new ModelAndView("/Admin/category");
 		mv.addObject("isUserClickedCategories","true");
 		
-		List<Category> categoryList= categoryDao.list();
-		
-		mv.addObject("categoryList", categoryList);
 		
 		mv.addObject("cat",new Category());     //To access the category domain in category */
 		
@@ -51,18 +48,17 @@ return mv;
 		
 	}
 
-	@RequestMapping("/Admin/manage_products")
+	@RequestMapping(value={"/Admin/manage_products","/allProducts"})
 	public ModelAndView manageProducts()
 	{
 		System.out.println("ManageProduct");
 		ModelAndView mv=new ModelAndView("/Admin/product");
 		mv.addObject("isUserClickedproducts","true");
 		
-       List<Product> productList= productDao.list();
+      
 		
-		mv.addObject("productList", productList);
 		mv.addObject("prd",new Product());   
-		mv.addObject("catList", categoryDao.list());
+		
 		
 		return mv;
 		
@@ -74,9 +70,7 @@ return mv;
 		ModelAndView mv=new ModelAndView("/Admin/supplier");
 		mv.addObject("isUserClickedSuppliers","true");
 		
-        List<Supplier> supplierList= supplierDao.list();
-		
-		mv.addObject("supplierList", supplierList);
+       
 		mv.addObject("sup",new Supplier());    
 		
 		return mv;

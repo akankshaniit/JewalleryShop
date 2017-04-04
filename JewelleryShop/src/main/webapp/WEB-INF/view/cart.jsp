@@ -1,7 +1,3 @@
-
-
-
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -25,12 +21,12 @@
 			<tr>
 				<td align="left">${cart.id}</td>
 				<td align="left">${cart.product_Name}</td>
-				<td align="left">${cart.added_Date}</td>
+				<td align="left">${cart.date_added}</td>
 				<td align="left">${cart.price}</td>
 				<td align="left"><a
 					href="<c:url value='/myCart/delete/${cart.id}'  />">Delete</a></td>
-					<img alt="${selectedProduct.name}"
-				src="${imageFolder}${selectedProduct.id}.jpg" >
+					
+					<img alt="${selectedProduct.name}" src="${imageFolder}${selectedProduct.id}.jpg" >
 			</tr>
 		</c:forEach>
 

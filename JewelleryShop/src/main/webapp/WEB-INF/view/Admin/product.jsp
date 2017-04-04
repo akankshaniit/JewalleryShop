@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Product</title>
 <style>
   .msgblock {
  color: blue;
@@ -28,75 +28,95 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/view/shared/header.jsp"></jsp:include> 
-
+<c:if test="${isAdmin}">
 <c:if test="${not editing}"> 
 <c:set var="saveorupdate" value="/JewelleryShop/Admin/create_product"></c:set>
 </c:if>
 <c:if test="${editing}" >
+
 <c:set var="saveorupdate" value="/JewelleryShop/Admin/product_edit"></c:set>
 
 </c:if>
+
 <div class="container" >
-<form:form  enctype="multipart/form-data" action="${saveorupdate}"  modelAttribute="prd">
+
+<form:form  enctype="multipart/form-data" action="${saveorupdate}" method="post"  modelAttribute="prd">
+
 <table style="width: 100%; text-align: center;">
 	<tr>
-		<td>
+		<th>
 				 <form:label  path="id">
-					<spring:message text="  Product Id:"/>
+					<spring:message text="  Product ID:"/>
 				 </form:label>
-		</td>
+		</th>
 		<td>
 				<form:input  path="id" />
 		</td>
+	</tr>
+	
+	
 		
-		<td>
+	<tr>
+		<th>
 				 <form:label  path="name">
 					<spring:message text="Product Name:"/>
 				</form:label>
-		</td>
+		</th>
 		<td>
 				<form:input  path="name" />
 		</td>
-		<td>
+	</tr>	
+	
+	<tr>
+		<th>
  				<form:label  path="price">
 					<spring:message text="Price:"/>
 				</form:label>
-		</td>
+		</th>
 		<td>
 				<form:input  path="price" />
 		</td>
-
-		<td>
+     </tr>
+     
+     <tr>
+		<th>
  				<form:label  path="categoryId">
 					<spring:message text="Category:"/>
 				</form:label>
-		</td>
+		</th>
 		<td>
 				<form:select  path="categoryId" >
-					<c:forEach var="cat" items="${catList}">
+					<c:forEach var="cat" items="${categoryList}">
 						<form:option value="${cat.id}">${cat.name}</form:option>
 					</c:forEach>
 				</form:select>
 		</td>
-		<td>
+	</tr>
+	
+	<tr>	
+		<th>
  				<form:label  path="qty">
 					<spring:message text="Quantity:"/>
 				</form:label>
-		</td>
+		</th>
 		<td>	
 				<form:input  path="qty" />
 		</td>
-
-		<td>
+    </tr>
+    
+    <tr>
+		<th>
  				<form:label  path="file">
 					<spring:message text="Image: "/>
 				</form:label>
-		</td>
+		</th>
 		<td>
 				<form:input type="file"   path="file" />
 		</td>
-
-		<td>  
+    </tr>
+   
+    <tr>
+		<th>  
 				<c:if test="${not editing}" >
  
  				<input  class="btn btn-info"  type="submit"
@@ -108,7 +128,7 @@
 					value="Update Product" />
 				</c:if>
 					
-		</td>
+		</th>
 </tr>
 <tr>
 <td colspan="2">
@@ -154,7 +174,10 @@
 
 </tr>
 </table>
+
 </form:form>
+
+
 <br><br>
 
 
@@ -165,7 +188,7 @@
    <c:out value="${msg}" />
    </div>
  </c:if>
-	
+</c:if>	
 	<table class="table table-striped;">
 	<tr>
 		<th>Image</th>
@@ -176,6 +199,7 @@
 	
 	<th>Action</th>
 	</tr>
+	<c:if test="${empty id}">
 	<c:forEach var="product" items="${productList}" >
 	<tr  >
 	 <td><img alt="NO IMAGE" height="50px" width="50px" src="<c:url value='/resources/images/${product.image}'/>" /></td> 
@@ -184,7 +208,7 @@
 	
 	
 	<td>
-			
+		<c:if test="${isAdmin}">	
 			<a class="btn btn-primary"
 									onclick="return confirm('Are you sure you want to edit this category?');"
 									href="<c:url value='manage_product_edit/${product.id}' />"> 
@@ -196,18 +220,64 @@
 									href="<c:url value='/Admin/product_delete/${product.id}' />"> 
 									<span class="glyphicon glyphicon-trash" ></span> Delete
 								</a>
+	   </c:if>
 								<a class="btn btn-primary"
 									href="<c:url value='/showproduct/${product.id}' />">
 									 Details
 								</a>
+		<c:if test="${not(isAdmin)}">						
+								<a class="btn btn-primary"
+									href="<c:url value='/myCart/add/${product.id}' />">
+									 Add to MyCart
+								</a>
+        </c:if>
+                                 
+     </c:forEach>                          
+</c:if>
+<c:if test="${not empty catId}">
+	<c:forEach var="product" items="${productList}" >
+	<c:if test="${product.categoryId eq catId}">
+	<tr  >
+	 <td><img alt="NO IMAGE" height="50px" width="50px" src="<c:url value='/resources/images/${product.image}'/>" /></td> 
+	<td>${product.name}</td>
+	<td>${product.price}</td>
+	
+	
+	<td>
+		<c:if test="${isAdmin}">	
+			<a class="btn btn-primary"
+									onclick="return confirm('Are you sure you want to edit this category?');"
+									href="<c:url value='manage_product_edit/${product.id}' />"> 
+									<span class="glyphicon glyphicon-pencil" ></span> Edit
+								</a>
 
-					
-
+								<a class="btn btn-primary"
+									onclick="return confirm('Are you sure you want to delete this Category?');"
+									href="<c:url value='/Admin/product_delete/${product.id}' />"> 
+									<span class="glyphicon glyphicon-trash" ></span> Delete
+								</a>
+	   </c:if>
+								<a class="btn btn-primary"
+									href="<c:url value='/showproduct/${product.id}' />">
+									 Details
+								</a>
+		<c:if test="${not(isAdmin)}">						
+								<a class="btn btn-primary"
+									href="<c:url value='/myCart/add/${product.id}' />">
+									 Add to MyCart
+								</a>
+        </c:if>
+                                 
+                               
+</c:if>
+</c:forEach>
+</c:if>
 	</td>
 	</tr>	
-	</c:forEach>
+	
 	</table>
-	</div>
+	
+</div>
 
 
 

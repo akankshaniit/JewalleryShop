@@ -2,6 +2,8 @@ package com.niit.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import com.niit.dao.SupplierDAO;
-import com.niit.model.Category;
 import com.niit.model.Supplier;
 
 
@@ -23,6 +24,8 @@ import com.niit.model.Supplier;
 @Controller
 public class SupplierController {
 
+	@Autowired
+	private HttpSession session;
 	@Autowired
 	private SupplierDAO supplierDao;
 	
@@ -38,11 +41,13 @@ public class SupplierController {
 		} else {
 		supplierDao.save(supplier);
 		
-		mv.addObject("msg","Category added Successfully");
+		mv.addObject("msg","Supplier added Successfully");
 		
 		}
+		/*
 List<Supplier> supplierList= supplierDao.list();
-mv.addObject("supplierList", supplierList);
+mv.addObject("supplierList", supplierList);*/
+		session.setAttribute("supplierList", supplierDao.list());
 		return mv;
 		
 	}
@@ -53,9 +58,6 @@ mv.addObject("supplierList", supplierList);
 	public ModelAndView editCategory(@PathVariable("id") String id){
 		ModelAndView mv = new ModelAndView("/Admin/supplier");
 		Supplier st=supplierDao.getSupplierByID(id);
-		List<Supplier> supplierList= supplierDao.list();
-		
-		mv.addObject("supplierList", supplierList);
 		
 		mv.addObject("sup",st); 
 		mv.addObject("editing",true);
@@ -79,8 +81,10 @@ mv.addObject("supplierList", supplierList);
 		mv.addObject("msg","Supplier updated Successfully");
 		
 		}
+		/*
 List<Supplier> supplierList= supplierDao.list();
-mv.addObject("supplierList", supplierList);
+mv.addObject("supplierList", supplierList);*/
+		session.setAttribute("supplierList", supplierDao.list());
 		return mv;
 		
 		
@@ -97,12 +101,12 @@ mv.addObject("supplierList", supplierList);
 		mv.addObject("msg","supplier Deleted Successfully");
 		else
 			mv.addObject("msg","supplier not Deleted");
-		
+		/*
 List<Supplier> supplierList= supplierDao.list();
-mv.addObject("supplierList", supplierList);
+mv.addObject("supplierList", supplierList);*/
 mv.addObject("sup",new Supplier());
-		return mv;
-		
+session.setAttribute("supplierList", supplierDao.list());
+		return mv;	
 	}
 	
 	

@@ -1,8 +1,9 @@
 package com.niit.controller;
 
-import java.util.List;
+
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,18 +18,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.niit.dao.CategoryDAO;
 import com.niit.dao.ProductDAO;
-import com.niit.model.Category;
 import com.niit.model.Product;
 
 @Controller
 public class ProductController {
 
 	@Autowired
+	private HttpSession session;
+	@Autowired
 	private ProductDAO productDao;
 	@Autowired
 	CategoryDAO categoryDao;
 	
-	@RequestMapping(value="/Admin/create_product",method=RequestMethod.POST)
+	@RequestMapping(value="/Admin/create_product", method=RequestMethod.POST)
 	public ModelAndView createProduct(HttpServletRequest request,@ModelAttribute("prd") @Validated Product product,BindingResult result, Model model){
 		
 	System.out.println(product.getName());
@@ -45,9 +47,7 @@ public class ProductController {
 		mv.addObject("msg","product added Successfully");
 		
 		}
-List<Product> productList= productDao.list();
-mv.addObject("productList", productList);
-mv.addObject("catList", categoryDao.list());
+		session.setAttribute("productList", productDao.list());
 		return mv;
 		
 	}
@@ -56,10 +56,7 @@ mv.addObject("catList", categoryDao.list());
 	public ModelAndView editProduct(@PathVariable("id") String id){
 		ModelAndView mv = new ModelAndView("/Admin/product");
 		Product pt=productDao.getProductByID(id);
-		List<Product> productList= productDao.list();
 		
-		mv.addObject("productList", productList);
-		mv.addObject("catList", categoryDao.list());
 		mv.addObject("prd",pt); 
 		mv.addObject("editing",true);
 		return mv;
@@ -69,7 +66,7 @@ mv.addObject("catList", categoryDao.list());
 	}
 	
 
-	@RequestMapping(value="Admin/product_edit",method=RequestMethod.POST)
+	@RequestMapping(value="/Admin/product_edit",method=RequestMethod.POST)
 	public ModelAndView editProduct(HttpServletRequest request,@ModelAttribute("prd") @Validated Product pt
 			, BindingResult result, Model model){
 	
@@ -86,8 +83,7 @@ mv.addObject("catList", categoryDao.list());
 		mv.addObject("msg","Product updated Successfully");
 		
 		}
-List<Product> productList= productDao.list();
-mv.addObject("productList", productList);
+		session.setAttribute("productList", productDao.list());
 		return mv;
 		
 		
@@ -105,10 +101,9 @@ mv.addObject("productList", productList);
 		else
 			mv.addObject("msg","Product not Deleted");
 		
-List<Product> productList= productDao.list();
-mv.addObject("productList", productList);
-mv.addObject("catList", categoryDao.list());
+
 mv.addObject("prd",new Product());
+session.setAttribute("productList", productDao.list());
 		return mv;
 		
 	}
@@ -133,7 +128,21 @@ mv.addObject("prd",new Product());
 	}
 	
 	
-
+	@RequestMapping(value={"/allProducts/{id}"})
+	public ModelAndView manageProducts(@PathVariable("id")String id)
+	{
+		System.out.println("ManageProduct");
+		ModelAndView mv=new ModelAndView("/Admin/product");
+		mv.addObject("isUserClickedproducts","true");
+		
+      
+		mv.addObject("catId", id);
+		mv.addObject("prd",new Product());   
+		
+		
+		return mv;
+		
+	}
 		
 		
 	

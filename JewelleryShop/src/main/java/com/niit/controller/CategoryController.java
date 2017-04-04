@@ -4,6 +4,7 @@ import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,8 @@ public class CategoryController {
 	
 	private static Logger log = LoggerFactory.getLogger(CategoryController.class);
 
-	
+	@Autowired
+	private HttpSession session;
 	@Autowired
 	private CategoryDAO categoryDao;
 	
@@ -52,8 +54,7 @@ public class CategoryController {
 		mv.addObject("msg","Category added Successfully");
 		
 		}
-List<Category> categoryList= categoryDao.list();
-mv.addObject("categoryList", categoryList);
+		session.setAttribute("categoryList", categoryDao.list());
 		return mv;
 		
 	}
@@ -64,7 +65,7 @@ mv.addObject("categoryList", categoryList);
 	
 	
 	
-	@RequestMapping(value="Admin/category_edit",method=RequestMethod.POST)
+	@RequestMapping(value="/Admin/category_edit",method=RequestMethod.POST)
 	public ModelAndView editCategory(@ModelAttribute("cat") @Validated Category ct
 			, BindingResult result, Model model){
 	
@@ -77,10 +78,9 @@ mv.addObject("categoryList", categoryList);
 		categoryDao.update(ct);
 		
 		mv.addObject("msg","Category updated Successfully");
-		
+	
 		}
-List<Category> categoryList= categoryDao.list();
-mv.addObject("categoryList", categoryList);
+		session.setAttribute("categoryList", categoryDao.list());
 		return mv;
 		
 		
@@ -91,9 +91,7 @@ mv.addObject("categoryList", categoryList);
 	public ModelAndView editCategory(@PathVariable("id") String id){
 		ModelAndView mv = new ModelAndView("/Admin/category");
 		Category ct=categoryDao.getCategoryByID(id);
-		List<Category> categoryList= categoryDao.list();
-		
-		mv.addObject("categoryList", categoryList);
+	
 		
 		mv.addObject("cat",ct); 
 		mv.addObject("editing",true);
@@ -113,9 +111,9 @@ mv.addObject("categoryList", categoryList);
 		else
 			mv.addObject("msg","Category not Deleted");
 		
-List<Category> categoryList= categoryDao.list();
-mv.addObject("categoryList", categoryList);
+
 mv.addObject("cat",new Category());
+session.setAttribute("categoryList", categoryDao.list());
 		return mv;
 		
 	}

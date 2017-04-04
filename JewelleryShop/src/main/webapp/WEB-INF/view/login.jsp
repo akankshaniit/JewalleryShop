@@ -1,6 +1,7 @@
 <%@ page isELIgnored="false"  language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
       <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+     
       <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
     
@@ -25,8 +26,8 @@
 	text-align: right;
 }
  .msgblock {
- color: blue;
- background-color: lightgreen;
+ color: red;
+ background-color: white;
  border: 3px solid blue;
  padding: 8px;
 }
@@ -37,16 +38,17 @@
 
 </head>
 <body>
-<jsp:include page="/WEB-INF/view/shared/header.jsp"></jsp:include> 
+<jsp:include page="/WEB-INF/view/shared/header.jsp"></jsp:include>
 
 
 <div class="container">
+<center>
 <c:if test="${not empty msg }">
    <div class="msgblock">
    <c:out value="${msg}" />
    </div>
  </c:if>
-
+</center>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
 				<div class="panel panel-login">
@@ -67,52 +69,34 @@
 						<div class="row">
 							<div class="col-lg-12">
 							
-							<c:url var="action" value="j_spring_security_check"></c:url>
-								<form:form action="${action}"   id="login-form" modelAttribute="user"  var="user" items="${user}"  method="post" role="form" style="display: block;">
+						
+								<form action="<c:url value='/j_spring_security_check'/>" method="post"   role="form" style="display: block;">
 								
 								
 									<div class="form-group">
-										<form:input type="text" id="mail" path="mail" name="username" tabindex="1" class="form-control" placeholder="Username" value="${user.mail}"></form:input>
-									</div>
-									<div class="has-error">
-									<form:errors path="mail" >
-                                           <p class="errStyle">
-                                               * Cannot be Empty
-                                           </p>
-                                    </form:errors>
+										<input required type="text"   name="username" tabindex="1" class="form-control" placeholder="Username" />
 									</div>
 									
+									
 									<div class="form-group">
-										<form:input type="password"  id="password" path="password" name="password" tabindex="2" class="form-control" placeholder="Password" value="${user.password} "></form:input>
+										<input required type="password"  name="password" tabindex="2" class="form-control" placeholder="Password"/>
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 									</div>
-									<div class="has-error">
-									<form:errors path="password" >
-                                           <p class="errStyle">
-                                               * Cannot be Empty 
-                                           </p>
-                                    </form:errors>
-									</div>
+								
 									
 									
 									
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
-												<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+												<input type="submit"  tabindex="4" class="form-control btn btn-login" value="Log In">
 											</div>
 										</div>
 									</div>
-									<div class="form-group">
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="text-center">
-													<a href="http://phpoll.com/recover" tabindex="5" class="forgot-password">Forgot Password?</a>
-												</div>
-											</div>
-										</div>
-									</div>
+										</form>
 									
-								</form:form>
+									
+							
 							
 								<form:form action="create_user" id="register-form"  modelAttribute="user"  method="post" items="${user}" role="form" style="display: none;">
 									<div class="form-group">
@@ -145,7 +129,7 @@
 									<div class="has-error">
 									<form:errors path="password" >
                                            <p class="errStyle">
-                                               * Cannot be Empty must be 8 Letters
+                                               * Cannot be Empty must be 6 Letters
                                            </p>
                                     </form:errors>
 									</div>

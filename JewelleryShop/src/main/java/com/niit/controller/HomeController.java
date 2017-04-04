@@ -45,8 +45,32 @@ public class HomeController {
 	ContactDAO contactDao;
 	
 	
-	
 	@RequestMapping("/")
+	public ModelAndView onLoad() {
+		log.debug("Starting of the method onLoad");
+		ModelAndView mv = new ModelAndView("/home");
+		session.setAttribute("category", new Category()); // domain object names
+		session.setAttribute("product", new Product());
+		session.setAttribute("supplier",new Supplier());
+		
+		
+		session.setAttribute("categoryList", categoryDao.list());
+		
+		session.setAttribute("supplierList", supplierDao.list());
+		
+		session.setAttribute("productList", productDao.list());
+	
+
+
+
+		log.debug("Ending of the method onLoad");
+		return mv;
+	}
+
+	
+	
+	
+	@RequestMapping("/home")
 	public ModelAndView home()
 	{
 		
@@ -96,22 +120,6 @@ public class HomeController {
 		return mv;
 	}
 	
-	
-	
-	@RequestMapping("/logout")
-	public ModelAndView logout()
-	{
-		ModelAndView mv = new ModelAndView("/home");
-		session.invalidate();
-        return mv;
-	}
-	
-	@RequestMapping("/mycart")
-	public ModelAndView mycart()
-	{
-	ModelAndView mv=new ModelAndView("/home");
-			return mv;
-	}
 	
 	@RequestMapping(value="/showAll")
 	public ModelAndView showAll(){

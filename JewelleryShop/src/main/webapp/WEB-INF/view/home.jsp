@@ -32,7 +32,7 @@
 <center>${LoginMessage }</center>
 
 
-<div id="mycarousel" class="carousel slide" data-ride="carousel" data interval="3000" no-margin no-padding>
+<div  id="mycarousel" class="carousel slide" data-ride="carousel" data interval="3000" no-margin no-padding>
 
 
 

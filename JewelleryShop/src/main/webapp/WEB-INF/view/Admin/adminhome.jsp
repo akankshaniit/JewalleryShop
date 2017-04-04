@@ -26,11 +26,11 @@
 
 
 <h2><center> Welcome Admin</center></h2>
-<center><h2><a href="manage_category">Manage Categories</a></center></h2>
+<center><h2><a href="<c:url value='/Admin/manage_category' />">Manage Categories</a></center></h2>
 <br><br>
-<h2><center><a href="manage_suppliers">Manage Supplier</a></center></h2>
+<h2><center><a href="<c:url value='/Admin/manage_suppliers' />">Manage Supplier</a></center></h2>
 <br><br>
-<h2><center><a href="manage_products">Manage Product</a></center></h2>
+<h2><center><a href="<c:url value='/Admin/manage_products' />">Manage Product</a></center></h2>
 
 <c:if test="${isUserClickedCategories==true} ">
 <jsp:include page="category.jsp"></jsp:include>
