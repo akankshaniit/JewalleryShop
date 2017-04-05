@@ -7,32 +7,48 @@
 <title>Cart page</title>
 </head>
 <body>
+
+<jsp:include page="/WEB-INF/view/shared/header.jsp"></jsp:include>
+
+<c:if test="${not empty msg }">
+   <div class="msgblock">
+   <c:out value="${msg}" />
+   </div>
+ </c:if>
+
 <c:set var="imageFolder" value="resources/img/" />
-	<table>
+	<table class="table table-striped;">
 		<tr>
-			<th align="left" width="80">Cart ID</th>
-			<th align="left" width="120">Product Name</th>
-			<th align="left" width="200">Date Added</th>
-			<th align="left" width="80">Price</th>
-			<th colspan="2" align="center" width="60">Action</th>
+			<th >Cart ID</th>
+			<th >Product Name</th>
+			<th >Date Added</th>
+			<th >Price</th>
+			<th >Action</th>
 
 		</tr>
 		<c:forEach items="${cartList}" var="cart">
 			<tr>
 				<td align="left">${cart.id}</td>
-				<td align="left">${cart.product_Name}</td>
+				<td align="left">${cart.product_name}</td>
 				<td align="left">${cart.date_added}</td>
 				<td align="left">${cart.price}</td>
-				<td align="left"><a
-					href="<c:url value='/myCart/delete/${cart.id}'  />">Delete</a></td>
+				<td >
+				<a class="btn btn-primary"
+									href="<c:url value='/myCart/delete/${cart.id}' />">
+									Remove From Cart
+								</a>
 					
 					<img alt="${selectedProduct.name}" src="${imageFolder}${selectedProduct.id}.jpg" >
+				</td>	
 			</tr>
 		</c:forEach>
 
+
+
+
 	</table>
 
-	<h2>Total cost : ${totalAmount}</h2>
+	<h2>Total Cost : ${totalAmount}</h2>
 	<br>
 	<a href="cart_checkout">Checkout </a>
 	<br>

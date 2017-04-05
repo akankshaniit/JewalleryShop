@@ -42,6 +42,24 @@
 	         <th>Price</th>
 	         <td>${product.price}</td>
 	   </tr> 
-	</div>
+	    <tr>     
+	         <th>Category ID</th>
+	         <td>${product.categoryId}</td>
+	   </tr>
+	    <tr>     
+	         <th>Quantity</th>
+	         <td>${product.qty}</td>
+	   </tr>
+	   
+	   
+	</table>
+	 <c:if test="${not(isAdmin)}">						
+								<a class="btn btn-primary"
+									href="<c:url value='/myCart/add/${product.id}' />">
+									 Add to MyCart
+								</a>
+        </c:if>  
+ </div>                 
+
 </body>
 </html>

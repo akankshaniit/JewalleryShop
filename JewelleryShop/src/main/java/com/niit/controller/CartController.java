@@ -1,11 +1,15 @@
 package com.niit.controller;
 
+import java.util.Collection;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,13 +45,14 @@ public class CartController {
 		// get the logged-in user id
 		String loggedInUserid = (String) session.getAttribute("loggedInUserID");
 
-		/*if (loggedInUserid == null) {
+		if (loggedInUserid == null) {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			loggedInUserid = auth.getName();
+			@SuppressWarnings("unchecked")
 			Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>)   auth.getAuthorities();
-			authorities.contains("USER");
+			authorities.contains("ROLE_USER");
 			
-		}*/
+		}
 		if(loggedInUserid!=null)
 		{
 
@@ -81,7 +86,7 @@ public class CartController {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			loggedInUserid = auth.getName();
 		}
-		myCart.setUserid(loggedInUserid);
+		myCart.setUser_name(loggedInUserid);
 		//It is not required if you given default value while creating the table
 		myCart.setStatus('N'); // Status is New. Once it is dispatched, we can
 								// changed to 'D'
@@ -93,12 +98,33 @@ public class CartController {
 		mycartDAO.save(myCart);
 		// return "redirect:/views/home.jsp";
 
-		ModelAndView mv = new ModelAndView("redirect:/allProducts");
+		ModelAndView mv = new ModelAndView("/Admin/product");
 		mv.addObject("msg", " Successfuly add the product to myCart");
+		mv.addObject("prd",new Product());  
 		log.debug("Ending of the method addToCart");
 		return mv;
 
 	}
 
+	@RequestMapping("/myCart/delete/{id}")
+//	public ModelAndView deleteCategory(@PathVariable("id") String id, Model model) throws Exception {
+	public ModelAndView deletecart(@PathVariable("id") int id, Model model) throws Exception {
+        MyCart mcart = mycartDAO.getCartByID(id);
+		ModelAndView mv = new ModelAndView("/cart");
+			boolean flag=mycartDAO.delete(id);
+		if(flag == true)
+		mv.addObject("msg","Product Removed from cart Successfully");
+		else
+			mv.addObject("msg","Product not Removed");
+		
+
+
+List<MyCart> mycartList= mycartDAO.list(mcart.getUser_name());
+mv.addObject("cartList", mycartList);
+//session.setAttribute("mycartList", mycartDAO.list(id));
+		return mv;
+		
+	}
+	
 	
 }

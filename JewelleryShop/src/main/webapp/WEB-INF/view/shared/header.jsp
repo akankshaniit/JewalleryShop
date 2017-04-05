@@ -72,7 +72,7 @@
          <c:if  test="${not empty LoginMessage}">
         <li><a href="<c:url value='/logout'/> "><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
              <c:if test="${not isAdmin}">
-                     <li><a href="<c:url value='myCart'/>"><span class="glyphicon glyphicon-mycart"></span> MyCart</a></li>
+                     <li><a href="<c:url value='/myCart'/>"><span class="glyphicon glyphicon-mycart"></span> MyCart</a></li>
                      </c:if>
               
          </c:if>
