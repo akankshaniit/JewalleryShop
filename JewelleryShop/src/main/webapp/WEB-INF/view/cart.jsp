@@ -5,6 +5,14 @@
 <head>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <title>Cart page</title>
+<style>
+  .msgblock {
+ color: blue;
+ background-color: lightgreen;
+ border: 3px solid blue;
+ padding: 8px;
+}
+</style>
 </head>
 <body>
 
@@ -16,7 +24,7 @@
    </div>
  </c:if>
 
-<c:set var="imageFolder" value="resources/img/" />
+<c:if test="${displayCart}">
 	<table class="table table-striped;">
 		<tr>
 			<th >Cart ID</th>
@@ -37,8 +45,6 @@
 									href="<c:url value='/myCart/delete/${cart.id}' />">
 									Remove From Cart
 								</a>
-					
-					<img alt="${selectedProduct.name}" src="${imageFolder}${selectedProduct.id}.jpg" >
 				</td>	
 			</tr>
 		</c:forEach>
@@ -54,6 +60,6 @@
 	<br>
 	<br>
 
-
+</c:if>
 </body>
 </html>

@@ -25,7 +25,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 	
 		<security:access-denied-handler
 			error-page="/accessDenied" />
-		<security:csrf />
+		<security:csrf disabled="true" />
 
 		 <security:logout logout-url="/logout" /> 
 

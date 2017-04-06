@@ -70,7 +70,7 @@
 							<div class="col-lg-12">
 							
 						
-								<form action="<c:url value='/j_spring_security_check'/>" method="post"   role="form" style="display: block;">
+								<form action="<c:url value='/j_spring_security_check'/>" method="post" id="login-form"   role="form" style="display: block;">
 								
 								
 									<div class="form-group">

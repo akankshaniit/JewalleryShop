@@ -46,11 +46,12 @@
 
 		<div class="container" >
 
-			<form:form  enctype="multipart/form-data" action="${saveorupdate}"   modelAttribute="prd">
+			<form:form action="${saveorupdate}"   modelAttribute="prd"  enctype="multipart/form-data">
 
 				<table style="width: 100%; text-align: center;">
 					<tr>
 							<th>
+							
 								 <form:label  path="id">
 									<spring:message text="  Product ID:"/>
 				 				</form:label>

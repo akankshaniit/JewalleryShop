@@ -47,7 +47,7 @@
         <li class="dropdown"><a style="color: white;" class="dropdown-toggle" data-toggle="dropdown" href="#">Category <span class="caret"></span></a>
         <ul class="dropdown-menu">
         <c:forEach items="${categoryList}" var="cat" >
-          <li><a href="allProducts/${cat.id}">${cat.name}</a></li>
+          <li><a href="<c:url value='allProducts/${cat.id}'/>">${cat.name}</a></li>
           </c:forEach>
         </ul>
       </li>
@@ -79,9 +79,9 @@
       </ul>
       
       
-       <form class="navbar-form navbar-left">
+       <form class="navbar-form navbar-left" action="<c:url value='/search'/>">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search">
+        <input type="text" name="name" class="form-control" placeholder="Search">
         <div class="input-group-btn">
           <button class="btn btn-default" type="submit">
             <i class="glyphicon glyphicon-search"></i>

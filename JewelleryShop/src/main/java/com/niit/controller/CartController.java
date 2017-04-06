@@ -40,8 +40,8 @@ public class CartController {
 
 	@RequestMapping(value = {"/myCart","/allproducts"}, method = RequestMethod.GET)
 	public String myCart(Model model) {
-		log.debug("Starting of the method myCart");
-		model.addAttribute("myCart", new MyCart());
+		
+		
 		// get the logged-in user id
 		String loggedInUserid = (String) session.getAttribute("loggedInUserID");
 
@@ -59,17 +59,17 @@ public class CartController {
 		int cartSize = mycartDAO.list(loggedInUserid).size();
 
 		if (cartSize == 0) {
-			model.addAttribute("errorMessage", "You do not have any products in your Cart");
+			model.addAttribute("msg", "You do not have any products in your Cart");
 		} else {
 			model.addAttribute("cartList", mycartDAO.list(loggedInUserid));
 			model.addAttribute("totalAmount", mycartDAO.getTotalAmount(loggedInUserid));
 			model.addAttribute("displayCart", "true");
-			model.addAttribute("cart",myCart);
+			
 
 		}
 		
 		}
-		log.debug("Ending of the method myCart");
+		
 		return "/cart";
 	}
 
@@ -99,7 +99,7 @@ public class CartController {
 		// return "redirect:/views/home.jsp";
 
 		ModelAndView mv = new ModelAndView("/Admin/product");
-		mv.addObject("msg", " Successfuly add the product to myCart");
+		mv.addObject("msg", " Successfuly added the product to myCart");
 		mv.addObject("prd",new Product());  
 		log.debug("Ending of the method addToCart");
 		return mv;
@@ -108,21 +108,20 @@ public class CartController {
 
 	@RequestMapping("/myCart/delete/{id}")
 //	public ModelAndView deleteCategory(@PathVariable("id") String id, Model model) throws Exception {
-	public ModelAndView deletecart(@PathVariable("id") int id, Model model) throws Exception {
-        MyCart mcart = mycartDAO.getCartByID(id);
-		ModelAndView mv = new ModelAndView("/cart");
+	public String deletecart(@PathVariable("id") int id, Model model) throws Exception {
+       
+		
 			boolean flag=mycartDAO.delete(id);
+			
 		if(flag == true)
-		mv.addObject("msg","Product Removed from cart Successfully");
+		model.addAttribute("msg","Product Removed from cart Successfully");
 		else
-			mv.addObject("msg","Product not Removed");
+			model.addAttribute("msg","Product not Removed");
 		
 
 
-List<MyCart> mycartList= mycartDAO.list(mcart.getUser_name());
-mv.addObject("cartList", mycartList);
-//session.setAttribute("mycartList", mycartDAO.list(id));
-		return mv;
+
+		return myCart(model);
 		
 	}
 	
