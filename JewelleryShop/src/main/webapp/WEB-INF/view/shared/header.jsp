@@ -57,6 +57,9 @@
        
         <li><a href="<c:url value='/contact'/>">Contact Us</a></li>
        <li><a href="<c:url value='/allProducts'/>">All Products</a></li>
+       
+        
+        
    <c:if test="${isAdmin}">
 				<li><a href="<c:url value='/Admin/adminhome'/>"> Admin</a></li>
 			</c:if>

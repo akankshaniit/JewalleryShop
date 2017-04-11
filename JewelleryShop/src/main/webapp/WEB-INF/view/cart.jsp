@@ -56,7 +56,7 @@
 
 	<h2>Total Cost : ${totalAmount}</h2>
 	<br>
-	<a href="cart_checkout">Checkout </a>
+	<a href="shipping">Checkout </a>
 	<br>
 	<br>
 

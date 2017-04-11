@@ -16,12 +16,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.niit.dao.CategoryDAO;
 import com.niit.dao.ContactDAO;
+import com.niit.dao.DebitCardDAO;
 import com.niit.dao.ProductDAO;
+import com.niit.dao.ShippingDAO;
 import com.niit.dao.SupplierDAO;
 import com.niit.dao.UserDAO;
 import com.niit.model.Category;
 import com.niit.model.Contact;
+import com.niit.model.DebitCard;
 import com.niit.model.Product;
+import com.niit.model.Shipping;
 import com.niit.model.Supplier;
 import com.niit.model.User;
 
@@ -44,7 +48,10 @@ public class HomeController {
 	SupplierDAO supplierDao;
 	@Autowired
 	ContactDAO contactDao;
-	
+	@Autowired
+	ShippingDAO shippingDao;
+	@Autowired
+	DebitCardDAO debitcardDao;
 	
 	@RequestMapping("/")
 	public ModelAndView onLoad() {
@@ -112,6 +119,19 @@ public class HomeController {
 	
 	}
 	
+	@RequestMapping("/shipping")
+	public ModelAndView showshipping()
+	{
+
+		//specify which page you have to navigation
+		ModelAndView mv=new ModelAndView("shipping");
+		mv.addObject("shipping",new Shipping());
+		mv.addObject("isUserClickedShipping", "true");
+		return mv;
+	
+	}
+	
+	
 	@RequestMapping("/about")
 	public ModelAndView showaboutus()
 	{
@@ -120,6 +140,7 @@ public class HomeController {
 		
 		return mv;
 	}
+	
 	
 	
 	@RequestMapping(value="/showAll")
@@ -147,6 +168,33 @@ public class HomeController {
 		return mv;
 		
 	}
+	
+	@RequestMapping(value="/paymode")
+	public ModelAndView pay(@RequestParam("payname") String paymode)
+	{
+		
+		ModelAndView mv;
+		if(paymode.equals("cash"))
+		{
+			mv=new ModelAndView("/cart_checkout");
+		}
+		else
+		{
+			mv=new ModelAndView("/paybydebit");
+		}
+		return mv;
+		
+	}	
+	
+	@RequestMapping(value="/paybydebit")
+	public ModelAndView paymode()
+	{
+		
+		ModelAndView mv=new ModelAndView("/paybydebit");
+		mv.addObject("debitcard",new DebitCard());
+		return mv;
+		
+	}	
 	
 	
 	
