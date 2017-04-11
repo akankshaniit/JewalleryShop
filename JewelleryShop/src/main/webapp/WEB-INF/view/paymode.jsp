@@ -12,7 +12,7 @@
 <center><h2>Payment Mode</h2></center>
 
 <center>
-<form>
+<form action="<c:url value='/paymode1' />" >
     <label class="radio-inline">
       <input type="radio" value="cash" name="payname">Cash on Delivery
     </label>
@@ -20,11 +20,11 @@
       <input type="radio" value="debit" name="payname">DebitCart Payment
     </label>
     <br >
-   <a class="btn btn-primary"
+   <button type="submit" class="btn btn-primary"
 									onclick="return confirm('Are you sure you want to proceed payment?');"
-									href="<c:url value='/paymode' />"> 
+									> 
 								 Proceed to Payment
-								</a>
+								</button>
  
   </form>
 </center>

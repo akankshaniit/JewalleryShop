@@ -29,8 +29,7 @@
    <br >
      <a class="btn btn-primary"
 									onclick="return confirm('Are you sure you want to delete this Category?');"
-									href="<c:url value='paymode' />"> 
-									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Proceed to Payment
+									href="<c:url value='paymode' />"> Proceed to Payment
 								</a>
  
    

@@ -236,14 +236,6 @@ mv.addObject("userList", userList);
 		
 	}	
 	
-	@RequestMapping("/cart_checkout")
-	public ModelAndView checkout()
-	{
-		//specify which page you have to navigation
-		ModelAndView mv=new ModelAndView("cart_checkout");
-		
-		return mv;
-	}
 	
 	
 	

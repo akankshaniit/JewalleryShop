@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.niit.dao.CategoryDAO;
 import com.niit.dao.ContactDAO;
 import com.niit.dao.DebitCardDAO;
+import com.niit.dao.MyCartDAO;
 import com.niit.dao.ProductDAO;
 import com.niit.dao.ShippingDAO;
 import com.niit.dao.SupplierDAO;
@@ -24,6 +27,7 @@ import com.niit.dao.UserDAO;
 import com.niit.model.Category;
 import com.niit.model.Contact;
 import com.niit.model.DebitCard;
+import com.niit.model.MyCart;
 import com.niit.model.Product;
 import com.niit.model.Shipping;
 import com.niit.model.Supplier;
@@ -52,6 +56,10 @@ public class HomeController {
 	ShippingDAO shippingDao;
 	@Autowired
 	DebitCardDAO debitcardDao;
+	@Autowired
+	MyCartDAO mycartDao;
+	
+	
 	
 	@RequestMapping("/")
 	public ModelAndView onLoad() {
@@ -170,6 +178,17 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/paymode")
+	public ModelAndView delivery()
+	{
+		
+		ModelAndView mv=new ModelAndView("/paymode");
+		mv.addObject("debitcard",new DebitCard());
+		return mv;
+		
+	}	
+	
+	
+	@RequestMapping(value="/paymode1")
 	public ModelAndView pay(@RequestParam("payname") String paymode)
 	{
 		
@@ -177,24 +196,26 @@ public class HomeController {
 		if(paymode.equals("cash"))
 		{
 			mv=new ModelAndView("/cart_checkout");
+			
+			String loggedInUserid = (String) session.getAttribute("loggedInUserID");
+			if (loggedInUserid == null) {
+				Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+				loggedInUserid = auth.getName();
+			}
+			
+			mycartDao.deletebyId(loggedInUserid);
+			
 		}
 		else
 		{
 			mv=new ModelAndView("/paybydebit");
+			mv.addObject("debitcard",new DebitCard());
 		}
 		return mv;
 		
 	}	
 	
-	@RequestMapping(value="/paybydebit")
-	public ModelAndView paymode()
-	{
-		
-		ModelAndView mv=new ModelAndView("/paybydebit");
-		mv.addObject("debitcard",new DebitCard());
-		return mv;
-		
-	}	
+	
 	
 	
 	

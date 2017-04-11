@@ -108,9 +108,9 @@ ModelAndView mv = new ModelAndView("/cart_checkout");
 		
 		mv.addObject("msg","User Send Payment Details Successfully");
 		
+		
 		}
-List<DebitCard> debitcardList= debitcardDAO.list();
-mv.addObject("debitcardList", debitcardList);
+		
 		return mv;
 		
 	}	
