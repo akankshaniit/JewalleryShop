@@ -14,11 +14,16 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.niit.dao.DebitCardDAO;
+import com.niit.dao.MyCartDAO;
+import com.niit.dao.OrdersDAO;
 import com.niit.dao.ShippingDAO;
 import com.niit.model.DebitCard;
+import com.niit.model.MyCart;
+import com.niit.model.Orders;
 import com.niit.model.Shipping;
 
 
@@ -36,6 +41,13 @@ public class ShippingController {
 	
 	@Autowired
 	private DebitCardDAO debitcardDAO;
+	
+	@Autowired
+	MyCartDAO mycartDao;
+	
+	@Autowired
+	private OrdersDAO ordersDAO;
+	
 	
 	@Autowired
 	private HttpSession session;
@@ -107,12 +119,79 @@ ModelAndView mv = new ModelAndView("/cart_checkout");
 		debitcardDAO.save(debitcard);
 		
 		mv.addObject("msg","User Send Payment Details Successfully");
-		
+		 saveOrders();
+			mycartDao.deletebyId(loggedInUserid);
 		
 		}
 		
 		return mv;
 		
 	}	
+	
+	
+	@RequestMapping(value="/paymode")
+	public ModelAndView delivery()
+	{
+		
+		ModelAndView mv=new ModelAndView("/paymode");
+		mv.addObject("debitcard",new DebitCard());
+		return mv;
+		
+	}	
+	
+	
+	@RequestMapping(value="/paymode1")
+	public ModelAndView pay(@RequestParam("payname") String paymode)
+	{
+		
+		ModelAndView mv;
+		if(paymode.equals("cash"))
+		{
+			mv=new ModelAndView("/cart_checkout");
+			
+			String loggedInUserid = (String) session.getAttribute("loggedInUserID");
+			if (loggedInUserid == null) {
+				Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+				loggedInUserid = auth.getName();
+			}
+		    saveOrders();
+			mycartDao.deletebyId(loggedInUserid);
+			
+		}
+		else
+		{
+			mv=new ModelAndView("/paybydebit");
+			mv.addObject("debitcard",new DebitCard());
+		}
+		return mv;
+		
+	}	
+	
+	private void saveOrders()
+	{
+		
+		String loggedInUserid = (String) session.getAttribute("loggedInUserID");
+		if (loggedInUserid == null) {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			loggedInUserid = auth.getName();
+		}
+		List<MyCart> lt= mycartDao.list(loggedInUserid);
+		for(MyCart mycart:lt)
+		{
+			ordersDAO.save(new Orders(mycart.getUser_name(),
+					mycart.getProduct_name(),
+					mycart.getPrice(),
+					mycart.getStatus(),
+					mycart.getQuantity(),
+					 mycart.getDate_added()
+					));
+		}
+		
+		
+		
+	}
+	
+	
+
 
 }
